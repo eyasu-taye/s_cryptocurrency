@@ -24,7 +24,7 @@ contract ethcoin{
     
     // Handle errors, to get why an opration fiald
     // Errors retured to the caller function
-    error InsufficientBalance(uint requested uint avialable)
+    error InsufficientBalance(uint requested, uint avialable)
 
     // Sends an amount of existing coin
     // from any caller to an address
@@ -32,8 +32,8 @@ contract ethcoin{
     function send(address receiver, uint amount) public {
         require(amount <= balances[msg.sender], InsufficientBalance(amount, balances[msg.sender]));
         balances[msg.sender]-=amount;
-        balace[receiver]+=amount;
-        emit Sent(msg.sender, receiver, amount);
+        balances[receiver]+=amount;
+        emit sent(msg.sender, receiver, amount);
 
     }
 }
