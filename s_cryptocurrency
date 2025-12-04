@@ -8,7 +8,7 @@ contract ethcoin{
 
     // Create events to allow for clients to react for a contract change
 
-    event(address from, address to, uint amount);
+    event sent(address from, address to, uint amount);
 
     // The constructor function only runs when the contract is created 
     constructor(){
