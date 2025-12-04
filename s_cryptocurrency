@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.4.0 <0.9.0;
+
+contract ethcoin{
+    // Declare variables accesible from from other contracts using the key public
+    address public minter;
+    mapping(address => uint) public balances;
+
+    // Create events to allow for clients to react for a contract change
+
+    event(address from, address to, uint amount);
+
+    // The constructor function only runs when the contract is created 
+    constructor(){
+        minter = msg.sender;
+    }
+
+    // Send an amount of newly created coin to an address
+    // Can be called  by only the contract creater
+    function mint(address receiver, uint amount) public {
+        require(msg.sender == minter);
+        balances[receiver] += amount;
+    }
+    
+    // Handle errors, to get why an opration fiald
+    // Errors retured to the caller function
+    error InsufficientBalance(uint requested uint avialable)
+
+    // Sends an amount of existing coin
+    // from any caller to an address
+
+    function send(address receiver, uint amount) public {
+        require(amount <= balances[msg.sender], InsufficientBalance(amount, balances[msg.sender]));
+        balances[msg.sender]-=amount;
+        balace[receiver]+=amount;
+        emit Sent(msg.sender, receiver, amount);
+
+    }
+}
